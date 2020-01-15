@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Autograder</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    </head>
+    {% load static %}
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script type="text/javascript" src="{% static "js/score.js" %}"></script>
+    <body>
+        {% if username %}
+        <div class="ui container" style="margin-top: 2em">
+            <h2 class="ui header">
+                <i class="settings icon"></i>
+                <div class="content">
+                    Welcome {{ username }}!
+                    <div class="sub header">Term: Winter 2020</div>
+                </div>
+            </h2>
+            <div class="ui raised segment">
+                <p>
+                    To submit an assignment, please choose from the dropdown menu below the name of the assignment. Next, upload all the required code files and make sure filenames match the specifications. Finally, press submit to forward your files to the autograder.
+                </p>
+                <p>
+                    To view your scores, please scroll down to see your grades for each assignment.
+                </p>
+                <a href="/logout/">
+                    <button class="ui compact labeled icon button">
+                        <i class="sign-out icon"></i>
+                        Log Out
+                    </button>
+                </a>
+            </div>
+            <h3 class="ui horizontal divider header">
+                <i class="external alternate icon"></i>
+                Submitting an Assignment
+            </h3>
+            <div class="ui placeholder segment">
+                <div class="ui two column very relaxed stackable middle aligned grid">
+                    <div class="column">
+                        <div class="ui dropdown labeled search icon button select-name">
+                            <i class="edit icon"></i>
+                            <span class="text">Select an Assignment</span>
+                            <div class="menu" id="nameselector">
+                                <div class="item" data-value="lab1">Lab 1</div>
+                                <div class="item" data-value="hw1">Homework 1</div>
+                                <div class="item" data-value="lab2">Lab 2</div>
+                                <div class="item" data-value="hw2">Homework 2</div>
+                                <div class="item" data-value="lab3">Lab 3</div>
+                                <div class="item" data-value="hw3">Homework 3</div>
+                            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <form action="/submit_codes/" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <label for="uploadinput" class="ui labeled middle aligned icon button">
+                                    <i class="file code icon"></i>
+                                    <span class="text" style="margin-left: -1em">Upload Your Codes</span>
+                                    <input type="file" name="code" multiple="true" id="uploadinput" style="width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position:absolute;z-index: -1;">
+                                </label>
+                                <div class="ui divider"></div>
+                                <button class="ui labeled middle aligned icon button" type="submit" value="OK">
+                                    <i class="upload icon"></i>
+                                    <span class="text">Submit All Files</span>
+                                </button>
+                        </form>
+                    </div>
+                    <div class="middle aligned column">
+                        <div class="ui relaxed divided list" id="default">
+                            <div class="item">
+                                <i class="large question circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    Please select an assignment from the dropdown list on the left.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui relaxed divided list" id="hw1">
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">diff.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">leap.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">snack.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">excel.rb</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui relaxed divided list" id="lab1">
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">lab1.txt</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui relaxed divided list" id="hw2">
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">collatz.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">asteroids.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">adder.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">sweeper.rb</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui relaxed divided list" id="lab2">
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">lab2.txt</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui relaxed divided list" id="hw3">
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">merge.rb</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">ballot.rb</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui relaxed divided list" id="lab3">
+                            <div class="item">
+                                <i class="large circle outline middle aligned icon"></i>
+                                <div class="content">
+                                    <div class="description">lab3.txt</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui vertical divider"></div>
+            </div>
+        </div>
+        {% else %}
+        <div class="ui container" style="margin-top: 2em">
+            <div class="ui red message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Sorry, we are having trouble logging you in 😢
+                </div>
+                <p>Please try again and make sure the username and password match</p>
+                <a href="/">
+                    <button class="ui compact orange labeled icon button">
+                        <i class="redo icon"></i>
+                        Return to Main Page
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </body>
+</html>

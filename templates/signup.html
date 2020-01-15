@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sign Up for an Account</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    </head>
+    {% load static %}
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="{% static "js/home.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <body>
+        <div class="ui container"
+            style="position: absolute; top: 40%; left: 50%; -ms-transform: translate(-40%, -50%); transform: translate(-50%, -50%); width: 35%"
+        >
+            {% if exists %}
+            <div class="ui red message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Account Already Exists
+                </div>
+                <p>Please try a different account</p>
+            </div>
+            {% endif %}
+            <div class="ui attached message">
+                <div class="header">
+                    <i class="user plus icon"></i>
+                    Sign up for a Bootcamp Account
+                </div>
+            </div>
+            <form class="ui form attached fluid segment" action="/attempt_create/" method="POST">
+                {% csrf_token %}
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Username">
+                </div>
+                <div class="field">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="Email Address">
+                </div>
+                <div class="field">
+                    <label>New Password</label>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <button class="ui button" type="submit" value="OK">Create an Account</button>
+            </form>
+        </div>
+    </body>
+</html>

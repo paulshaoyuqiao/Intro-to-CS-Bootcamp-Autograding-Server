@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Autograder</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    </head>
+    {% load static %}
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="{% static "js/home.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <body>
+        <div class="ui container" style="margin-top: 2em">
+            <h2 class="ui header">
+                <i class="settings icon"></i>
+                <div class="content">
+                    Welcome to Intro to CS Bootcamp Assignment Autograder
+                    <div class="sub header">Term: Winter 2020</div>
+                </div>
+            </h2>
+            <div class="ui raised segment">
+                <p>
+                    To submit an assignment or view your progress so far, please click on the left button below to log in. Once you have logged in, select the corresponding assignment you are submitting from the dropdown list and make sure you have all the matching filenames. Press Submit to submit for autograding.
+                </p>
+                <p>
+                    To view the due date of an assignment, please click on the right button below to see the course schedule.
+                </p>
+            </div>
+            {% if user_created %}
+            <div class="ui success message">
+                <i class="close icon"></i>
+                <div class="header">
+                  You have successfully registered a new user!
+                </div>
+                <p>You may now login with the account you created</p>
+            </div>
+            {% endif %}
+            {% if failedlogin %}
+            <div class="ui orange message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Invalid Login Credentials
+                </div>
+                <p>Please make sure your username and password match</p>
+            </div>
+            {% endif %}
+            <div class="ui placeholder segment">
+                <div class="ui two column very relaxed stackable grid">
+                    <div class="column">
+                    <div class="ui center aligned container">
+                        <form class="ui form" action="/attempt_login/" method="POST">
+                            {% csrf_token %}
+                            <div class="field">
+                            <label>Username</label>
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Username" name="username">
+                                <i class="user icon"></i>
+                            </div>
+                            </div>
+                            <div class="field">
+                            <label>Password</label>
+                            <div class="ui left icon input">
+                                <input type="password" placeholder="Password" name="password">
+                                <i class="lock icon"></i>
+                            </div>
+                            </div>
+                            <div align="center">
+                                <button class="ui blue middle button" type="submit" value="OK">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                    <div class="middle aligned column">
+                        <div class="ui buttons" align="center">
+                            <div class="ui big labeled icon teal button">
+                                <i class="calendar check icon"></i>
+                                View Deadlines
+                            </div>
+                            <div class="or"></div>
+                            <a href="/signup/">
+                                <div class="ui right big labeled icon green button">
+                                    <i class="user plus icon"></i>
+                                    Create a New Account
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui vertical divider">
+                    Or
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

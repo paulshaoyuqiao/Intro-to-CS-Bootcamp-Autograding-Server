@@ -1,0 +1,7 @@
+# Don't track the content of these files
+# Ignoring Development Database
+db.sqlite3
+# Ignoring Cached Files
+icsb_autograder/__pycache__
+# Ignoring Settings Containing Secret Key
+icsb_autograder/settings.py
