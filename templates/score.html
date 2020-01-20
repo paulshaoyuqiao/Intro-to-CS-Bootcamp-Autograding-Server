@@ -14,12 +14,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
     <script type="text/javascript" src="{% static "js/score.js" %}"></script>
     <body>
-        {% if username %}
+        {% if user.is_authenticated %}
         <div class="ui container" style="margin-top: 2em">
             <h2 class="ui header">
                 <i class="settings icon"></i>
                 <div class="content">
-                    Welcome {{ username }}!
+                    Welcome {{ user.get_username }}!
                     <div class="sub header">Term: Winter 2020</div>
                 </div>
             </h2>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Autograder</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    </head>
+    {% load static %}
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script type="text/javascript" src="{% static "js/score.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/result.js" %}"></script>
+    <body>
+        <div class="ui container" style="margin-top: 2em">
+            <h2 class="ui header">
+                <i class="settings icon"></i>
+                <div class="content">
+                    Welcome {{ user.get_username }}!
+                    <div class="sub header">Term: Winter 2020</div>
+                </div>
+            </h2>
+            <div class="ui raised segment">
+                <p>
+                    To view your graded submission, please scroll down to see all the test cases.
+                </p>
+                <p>
+                    To view how your submission performs on an individual test case, please click a test case to expand the test details.
+                </p>
+                <a href="/logout/">
+                    <button class="ui compact labeled icon button">
+                        <i class="sign-out icon"></i>
+                        Log Out
+                    </button>
+                </a>
+            </div>
+            <h3 class="ui horizontal divider header">
+                <i class="external alternate icon"></i>
+                View Your Graded Submission
+            </h3>
+            <div class="ui info message">
+                <div class="header">
+                    Summary of Test Results
+                </div>
+                <ul class="list">
+                    <li>
+                        Number of Test Cases: {{ summary.total_test_cases }}
+                    </li>
+                    <li>
+                        Number of Tested Methods: {{ summary.method_count }}
+                    </li>
+                    <li>
+                        Score: {{ summary.actual_full_score }}/{{ summary.total_full_score}}
+                    </li>
+                </ul>
+            </div>
+            <div class="ui divider"></div>
+            {% if contents and user.is_authenticated %}
+                {% for test_suite in contents %}
+                    <div class="ui styled fluid accordion">
+                    {% for content in test_suite %}
+                        {% if content.actual_score == '0' %}
+                            <div class="ui red message title" style="color: black">
+                        {% else %}
+                            <div class="ui green message title" style="color: black">
+                        {% endif %}
+                            <i class="dropdown icon"></i>
+                            Output For {{ content.test_name }} - Score: {{ content.actual_score }}/{{ content.total_score }}
+                        </div>
+                        {% if content.actual_score == '0' %}
+                            <div class="ui orange message content" style="color: black">
+                        {% else %}
+                            <div class="ui olive message content" style="color: black">
+                        {% endif %}
+                            <p class="transition hidden">
+                                <strong>Test Input</strong>: <code>{{ content.test_input }}</code>
+                            </p>
+                            <p class="transition hidden">
+                                <strong>Expected</strong>: <code>{{ content.expected_output }}</code>
+                            </p>
+                            <p class="transition hidden">
+                                <strong>Actual</strong>: <code>{{ content.actual_output }}</code>
+                            </p>
+                            <p class="transition hidden">
+                                <strong>Score</strong>: {{ content.actual_score }}/{{ content.total_score }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="ui container" style="margin-top: 2em">
+            <div class="ui red message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Sorry, we are having trouble logging you in 😢
+                </div>
+                <p>Please try again and make sure the username and password match</p>
+                <a href="/">
+                    <button class="ui compact orange labeled icon button">
+                        <i class="redo icon"></i>
+                        Return to Main Page
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </body>
+</html>
