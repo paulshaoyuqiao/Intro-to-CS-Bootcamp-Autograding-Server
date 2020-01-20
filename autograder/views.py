@@ -11,6 +11,7 @@ from os import remove
 from os.path import join, abspath
 from .test_generator import TestRunner, assignment_by_method
 from .models import Submission, Assignment
+from django.db.models import Max
 
 # Create your views here.
 def home(request):
@@ -51,7 +52,13 @@ def attempt_login(request):
         request.user = authenticate(username=login_username, password=login_password)
         if request.user is not None:
             # redirect to the assignment submission page
-            return render(request, 'score.html', context={'username': login_username})
+            matched_records = Submission.objects.filter(
+                name__startswith=login_username
+            ).annotate(score=Max('score')).values()
+
+            return render(
+                request, 'score.html', context={'username': login_username, 'scores': matched_records}
+            )
             # return display_scores(request, login_username)
         else:
             # authentication failed
