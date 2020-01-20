@@ -1,6 +1,6 @@
 # Autograding Server for Intro to CS Bootcamp
 
-- New autograding server for Intro to CS Bootcamp (built with Django 3.0.2 as the main backend framework). 
+- New Django-based autograding server for Intro to CS Bootcamp (built with **Django 3.0.2** as the main backend framework). 
 - Migrating from the older Ruby on Rails framework for more efficient, stream-lined processing, better library support for analytics insights. 
 - Older framework will still remain in use, but only serving as backend for the course website.
 
