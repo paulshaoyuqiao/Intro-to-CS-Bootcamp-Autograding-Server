@@ -5,3 +5,5 @@ db.sqlite3
 icsb_autograder/__pycache__
 # Ignoring Settings Containing Secret Key
 icsb_autograder/settings.py
+# Ignoring vscode settings
+.vscode/settings.json
