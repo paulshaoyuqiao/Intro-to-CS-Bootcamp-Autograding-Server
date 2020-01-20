@@ -13,6 +13,7 @@
 - [x] Set up User Authentication and Sign Up (including associated front-end pages)
 - [x] Set up Autograding Framework using Temporary File Caching and Subprocesses
 - [x] Set up POST-related CSRF Protection for Form Submission
+- [x] Integrated Model into Autograding Process 
 
 ## In Progress:
 - [ ] Migrate Dev Database to PostgreSQL
